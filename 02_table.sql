@@ -5,6 +5,7 @@ CREATE TABLE employee (
     department VARCHAR(50),
     salary DECIMAL(10, 2)
 );
+
 CREATE TABLE project (
     project_id INT PRIMARY KEY IDENTITY(1,1),
     project_name VARCHAR(100),
@@ -13,6 +14,7 @@ CREATE TABLE project (
     start_date DATE,
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
+
 
 
 DROP TABLE IF EXISTS project;
@@ -77,6 +79,15 @@ INSERT INTO project (project_name, employee_id, client_name, start_date) VALUES
 ('Mobile App', 10, 'Kappa Tech', '2024-06-20');
 
 
+SELECT TOP 5 * FROM employee;
+
+SELECT TOP 20 PERCENT * FROM employee;
+
+SELECT TOP 60 PERCENT * FROM employee;
+
+
+
+
 
 SELECT COUNT(*) AS total_employees FROM employee;
 SELECT COUNT(*) AS total_projects FROM project;
@@ -103,3 +114,29 @@ SELECT e.employee_name, e.salary, p.project_name
 FROM employees AS e
 INNER JOIN project AS p
         ON e.employee_id = p.employee_id;
+
+
+SELECT * FROM employee;
+
+SELECT * FROM project;
+
+
+CREATE PROCEDURE GetHighSalaryEmployees
+AS
+BEGIN
+    SELECT * FROM employee WHERE salary > 50000;
+END;
+
+
+EXEC GetHighSalaryEmployees;
+
+
+CREATE PROCEDURE GetEmployeeStartNameWith_A
+AS BEGIN
+SELECT * FROM employee WHERE employee_name LIKE 'A%';
+END;
+
+
+EXEC GetEmployeeStartNameWith_A;
+
+
